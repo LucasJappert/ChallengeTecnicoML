@@ -4,9 +4,9 @@
         <div class="wSite">
             <div class="containerProductos">
                 <div v-for="(item, index) in RetornoApi.items" :key="index" class="containerProducto">
-                    <nuxt-link :to="/items/ + item.id"  class="contenedorFoto">
+                    <a :href="/items/ + item.id" class="contenedorFoto">
                         <img :src="item.picture" :alt="'Foto ' + item.id" class="fotoProducto">
-                    </nuxt-link>
+                    </a>
                     <div class="contenedorInfo">
                         <div class="Seccion1">
                             <div class="dFcentered">
@@ -16,7 +16,9 @@
                             
                             <div class="City">{{item.address_state_name}}</div>
                         </div>
-                        <nuxt-link :to="/items/ + item.id"   class="Seccion2">{{item.title}}</nuxt-link>
+                        <a :href="/items/ + item.id" class="Seccion2" replace>
+                        <h1 class="">{{item.title}}</h1>
+                        </a>
                     </div>
                     <br>
                     <div v-if="index != RetornoApi.items.length - 1" class="breakFlex">
@@ -50,6 +52,13 @@ export default {
     head(query) {
         return {
         title: "Challenge Técnico | Búsqueda " + this.TextoBuscado,
+        meta: [
+            { name: 'keywords', content: this.Keywords()},
+            { hid: 'og:title', name: 'og:title', content: "Challenge Técnico | Búsqueda " + this.TextoBuscado},
+            // { hid: 'og:description', name: 'og:description', content: this.RetornoApi.item.title},
+            { hid: 'og:url', name: 'og:url', content: "/items?search=" + this.TextoBuscado},
+            // { hid: 'og:image', name: 'og:image', content: this.RetornoApi.item.picture},
+        ]
         // meta: [
         //   {
         //     hid: 'description',
@@ -78,9 +87,13 @@ export default {
     created(){
     },
     methods: {
+        Keywords() {
+            var _Retorno = this.TextoBuscado;
+            _Retorno += ", ¡ofertas black friday! ";
+            _Retorno += ", Challenge tecnico ML ";
+            return _Retorno;
+        }
     },
-    components: {
-    }
 }
 </script>
 
@@ -137,11 +150,14 @@ export default {
     .contenedorInfo .Seccion2{
         width:100%;
         display: flex;
-        line-height:30px;
-        height:30px;
-        font-size:18px;
+        line-height:18px;
+        height:18px;
         margin-top: $MargenVerde;
     }
+    .contenedorInfo .Seccion2 h1{
+        font-size:18px;
+    }
+    
     .fotoProducto{
         max-width:$TamañoFoto;
         max-height:$TamañoFoto;
@@ -177,9 +193,11 @@ export default {
     }
     .contenedorInfo .Seccion2{
         margin-top: $MargenVerde_M;
+        line-height:14px;
+        height:14px;
+    }
+    .contenedorInfo .Seccion2 h1{
         font-size:14px;
-        line-height:20px;
-        height:20px;
     }
     .contenedorInfo{
         padding: $MargenRojo_M 5px $MargenRojo_M 0;;

@@ -1,7 +1,7 @@
 <template>
   <div class="Contenedor">
     <div class="wSite">
-      <img src="../assets/Logo_ML@2x.png.png" alt="Logo ML" class="LogoML fLeft">
+      <a href="/" class="fLeft LinkLogo"><img src="../assets/Logo_ML@2x.png.png" alt="Logo ML" class="LogoML"></a> 
       <div class="BotonLupa fRigth" @click="ClickBuscar()"></div>
       <input type="text" class="CajaBusqueda fRigth" placeholder="Nunca dejes de buscar" id="CajaBusqueda"
        autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off" 
@@ -38,7 +38,8 @@ export default {
         
         _Texto = window.encodeURIComponent(_Texto);
 
-        this.$router.push("/items?search=" + _Texto)
+        window.location.href = "/items?search=" + _Texto;
+        // this.$router.push("/items?search=" + _Texto);
       }
     }
 }
@@ -56,6 +57,10 @@ export default {
     justify-content: center;
   }
   .LogoML{
+    width: $AnchoLogoML; 
+    height:36px;
+  }
+  .LinkLogo{
     width: $AnchoLogoML; 
     height:36px;
     margin-top: 1px;

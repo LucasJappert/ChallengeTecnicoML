@@ -1,4 +1,4 @@
-const options = {"workboxURL":"https://cdn.jsdelivr.net/npm/workbox-cdn@5.1.3/workbox/workbox-sw.js","importScripts":[],"config":{"debug":false},"clientsClaim":true,"skipWaiting":true,"cleanupOutdatedCaches":true,"offlineAnalytics":false,"preCaching":["/",{"url":"/_nuxt/assets/fonts/proximanova-light.woff2","revision":null},{"url":"_nuxt/assets/fonts/proximanova-regular.woff2","revision":null},{"url":"/_nuxt/assets/ic_shipping@2x.png","revision":null},{"url":"/_nuxt/assets/Logo_ML@2x.png.png","revision":null},{"url":"/favicon.svg","revision":null}],"runtimeCaching":[{"urlPattern":"/_nuxt/","handler":"NetworkFirst","method":"GET","strategyPlugins":[]},{"urlPattern":"/","handler":"NetworkFirst","method":"GET","strategyPlugins":[]},{"urlPattern":"/_nuxt/","handler":"NetworkFirst","method":"GET","strategyPlugins":[]},{"urlPattern":"/","handler":"NetworkFirst","method":"GET","strategyPlugins":[]},{"urlPattern":"/_nuxt/","handler":"NetworkFirst","method":"GET","strategyPlugins":[]},{"urlPattern":"/","handler":"NetworkFirst","method":"GET","strategyPlugins":[]},{"urlPattern":"/_nuxt/","handler":"NetworkFirst","method":"GET","strategyPlugins":[]},{"urlPattern":"/","handler":"NetworkFirst","method":"GET","strategyPlugins":[]},{"urlPattern":"/_nuxt/","handler":"NetworkFirst","method":"GET","strategyPlugins":[]},{"urlPattern":"/","handler":"NetworkFirst","method":"GET","strategyPlugins":[]},{"urlPattern":"/_nuxt/","handler":"NetworkFirst","method":"GET","strategyPlugins":[]},{"urlPattern":"/","handler":"NetworkFirst","method":"GET","strategyPlugins":[]}],"offlinePage":null,"pagesURLPattern":"/","offlineStrategy":"NetworkFirst"}
+const options = {"workboxURL":"https://cdn.jsdelivr.net/npm/workbox-cdn@5.1.3/workbox/workbox-sw.js","importScripts":[],"config":{"debug":false},"clientsClaim":true,"skipWaiting":true,"cleanupOutdatedCaches":true,"offlineAnalytics":false,"preCaching":["/",{"url":"/favicon.svg?version=1","revision":null}],"runtimeCaching":[{"urlPattern":"https://http2.mlstatic.com/.*","strategyOptions":{"cacheName":"Cache-mlstatic"},"strategyPlugins":[{"use":"expiration.ExpirationPlugin","config":[{"maxEntries":10,"maxAgeSeconds":300}]}],"handler":"NetworkFirst","method":"GET"},{"urlPattern":"/_nuxt/","handler":"CacheFirst","method":"GET","strategyPlugins":[]},{"urlPattern":"/","handler":"NetworkFirst","method":"GET","strategyPlugins":[]}],"offlinePage":null,"pagesURLPattern":"/","offlineStrategy":"NetworkFirst"}
 
 importScripts(...[options.workboxURL, ...options.importScripts])
 
@@ -9,24 +9,6 @@ cachingExtensions(workbox, options)
 runtimeCaching(workbox, options)
 offlinePage(workbox, options)
 routingExtensions(workbox, options)
-asdasd
-
-self.addEventListener('fetch', event => {
-  console.log(event.request.url);
-  return false;
-  event.respondWith(
-    caches.open('myCache').then(cache => {
-      return cache.match(event.request).then(cachedResponse => {
-        const fetchPromise = fetch(event.request).then(response => {
-            cache.put(event.request, response.clone());
-            return response;
-          });
-          return cachedResponse || fetchPromise;
-        })
-    })
-  );
-});
-  
 
 function getProp(obj, prop) {
   return prop.split('.').reduce((p, c) => p[c], obj)

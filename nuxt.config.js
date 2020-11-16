@@ -4,6 +4,10 @@ export default {
   // automatically purged.
   version: "Version1",
 
+  // router: {
+  //   prefetchLinks: false
+  // },
+
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     htmlAttrs: {
@@ -51,12 +55,18 @@ export default {
   buildModules: [
     '@nuxtjs/pwa',
   ],
-  
+
+  // router: {
+  //   prefetchLinks: false
+  // },
+
   pwa: {
     manifest: {
       start_url: "/",
       lang: 'es',
-      theme_color: "#FFE400"
+      theme_color: "#FFE400",
+      background_color: "#FFE400",
+      description: "Challenge Tecnico ML"
     },
     icon: {
       fileName: 'iconoPWA.png',
@@ -64,18 +74,37 @@ export default {
     workbox: {
       /* workbox options */
       // workboxURL: "https://cdn.jsdelivr.net/npm/workbox-cdn/workbox/workbox-sw.js",
-      enabled: true,
-      config: {
-        debug: false,
-      },
+      // enabled: true,
+      // config: {
+      //   debug: false,
+      // },
+      // cachingExtensions: '@/plugins/workbox-range-request.js',
       preCaching: [
-        // { url: "/", revision: "1231232"},
-        { url: "/_nuxt/assets/fonts/proximanova-light.woff2", revision: null},
-        { url: "_nuxt/assets/fonts/proximanova-regular.woff2", revision: null},
-        { url: "/_nuxt/assets/ic_shipping@2x.png", revision: null},
-        { url: "/_nuxt/assets/Logo_ML@2x.png.png", revision: null},
-        { url: "/favicon.svg", revision: null},
-      ]
+        //{ url: "/"},
+        // { url: "~assets/fonts/proximanova-light.woff2", revision: null},
+        // { url: "~assets/fonts/proximanova-regular.woff2", revision: null},
+        // { url: "~assets/ic_shipping@2x.png", revision: null},
+        // { url: "~assets/Logo_ML@2x.png.png", revision: null},
+        // { url: "/_nuxt/.*", revision: null},
+        { url: "/favicon.svg?version=1", revision: null},
+      ],
+      runtimeCaching: [
+        {
+          urlPattern: 'https://http2.mlstatic.com/.*',
+          //handler: 'cacheFirst',
+          strategyOptions: {
+            cacheName: 'Cache-mlstatic',
+          },
+          strategyPlugins: [{
+             use: 'Expiration',
+             config: {
+               maxEntries: 10,
+               maxAgeSeconds: 300
+             }
+           }]
+        },
+      ],
+
     }
   },
 
@@ -88,8 +117,7 @@ export default {
     'nuxt-ssr-cache',
   ],
 
-  ssr: false,
-
+  //Server Side
   cache: {
       // if you're serving multiple host names (with differing
       // results) from the same server, set this option to true.
@@ -176,4 +204,9 @@ export default {
     }
   },
 
+  // render: {
+  //   static: {
+  //     maxAge: 2592000
+  //   }
+  // },
 }

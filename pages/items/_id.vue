@@ -4,9 +4,9 @@
             <div class="wSite" v-if="RetornoApi.item.categories">
                 <div class="SeccionPath">
                     <div v-for="(item, index) in RetornoApi.item.categories" :key="index" class="Categoria">
-                        <div :class="{ B: (index == RetornoApi.item.categories.length - 1)}">
+                        <h2 :class="{ B: (index == RetornoApi.item.categories.length - 1)}">
                             {{item.name}}
-                        </div>
+                        </h2>
                         
                         <div v-if="index != RetornoApi.item.categories.length - 1">
                             <div class="PiquitoMayor">
@@ -21,7 +21,7 @@
                     </div>
                     <div class="ContenedorInfo">
                         <div class="Condition">{{RetornoApi.item.condition}} - {{RetornoApi.item.sold_quantity}} vendidos</div>
-                        <div class="Titulo">{{RetornoApi.item.title}}</div>
+                        <h1 class="Titulo">{{RetornoApi.item.title}}</h1>
                         <div class="Precio">
                             {{RetornoApi.item.price.currency}} {{new Intl.NumberFormat("de-ES").format(RetornoApi.item.price.amount)}}
                         </div>
@@ -59,13 +59,21 @@ export default {
     },
     head() {
         return {
-            title: "Challenge Técnico | Detalle producto"
+            title: "Challenge Técnico | " + this.RetornoApi.item.title,
+            meta: [
+                { name: 'keywords', content: this.Keywords()},
+                { hid: 'og:title', name: 'og:title', content: this.RetornoApi.item.title},
+                { hid: 'og:description', name: 'og:description', content: this.RetornoApi.item.title},
+                { hid: 'og:url', name: 'og:url', content: "/items/" + this.RetornoApi.item.id},
+                { hid: 'og:image', name: 'og:image', content: this.RetornoApi.item.picture},
+            ]
         }
     },
     data(){
         return {
             IdProducto: "",
-            RetornoApi: { }
+            RetornoApi: { },
+
             // RetornoApi: {
             //     item: [{
             //         categories: []
@@ -97,49 +105,14 @@ export default {
             console.log(e);
         }
     },
-    // async fetch(){
-    //     console.log("fetch: " + this.$route.params.id);
-    //     const { data } = await axios.get("http://localhost:2004/api/items/" + this.$route.params.id);
-    //     this.RetornoApi = data;
-    //     this.IdProducto = this.$route.params.id;
-    // },
-    // async beforeMount() {
-    //     let _Retorno = {
-    //         IdProducto: "",
-    //         RetornoApi: {}
-    //     };
-    //     await axios.get("http://localhost:2004/api/items/" + this.$route.params.id)
-    //     .then(function (response){
-    //         _Retorno = response.data;
-    //         //console.log(_Data);
-    //     })
-    //     .catch(function (e){
-    //         console.log(e);
-    //     });
-    //     this.RetornoApi = _Retorno;
-    //     this.IdProducto = this.$route.params.id;
-    //     // return { 
-    //     //     RetornoApi: _Retorno,
-    //     //     IdProducto: route.params.id
-    //     // };
-    // },
-    // async created(){
-    //     let _Retorno = {
-    //         IdProducto: "",
-    //         RetornoApi: {}
-    //     };
-    //     console.log(this.$route.params.id);
-    //     await axios.get("http://localhost:2004/api/items/" + this.$route.params.id)
-    //         .then(function (response){
-    //             _Retorno = response.data;
-    //             //console.log(_Data);
-    //         })
-    //         .catch(function (e){
-    //             console.log(e);
-    //         });
-    //     this.RetornoApi = _Retorno;
-    //     this.IdProducto = this.$route.params.id;
-    // },
+    methods: {
+        Keywords() {
+            var _Retorno = this.RetornoApi.item.categories.map((cat) => cat.name).join(', ');
+            _Retorno += ", ¡ofertas black friday! ";
+            _Retorno += ", Challenge tecnico ML ";
+            return _Retorno;
+        }
+    }
 }
 </script>
 
@@ -159,7 +132,7 @@ export default {
         flex-flow: row wrap;
         flex-direction: row;
         flex-wrap: wrap;
-        color:#999;
+        color:#666;
     }
     .containerFicha{
         background: #FFF;
@@ -171,6 +144,9 @@ export default {
     }
     .Categoria{
         display: flex;
+        font-size:14px;
+    }
+    .Categoria h2{
         font-size:14px;
     }
     .PiquitoMayor{
@@ -189,8 +165,8 @@ export default {
     .FotoProducto{
         max-width:$TamañoFoto;
         max-height:$TamañoFoto;
-        max-width:100%;
-        max-height:100%;
+        max-width: calc(100% - 40px);
+        max-height: calc(100% - 40px);
         border-radius:4px;
     }
     .ContenedorInfo{
@@ -261,10 +237,8 @@ export default {
             height:$TamañoFoto_M - 32px;
         }
         .FotoProducto{
-            max-width:$TamañoFoto_M;
-            max-height:$TamañoFoto_M;
-            max-width: 100%;
-            max-height:100%;
+            // max-width:$TamañoFoto_M;
+            // max-height:$TamañoFoto_M;
         }
         .Titulo{
             margin-top:$MargenRojo_M;
