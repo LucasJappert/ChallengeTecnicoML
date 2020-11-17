@@ -2,7 +2,7 @@ export default {
   // If you provide a version, it will be stored inside cache.
   // Later when you deploy a new version, old cache will be
   // automatically purged.
-  version: "Version1",
+  version: "Version2",
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
@@ -102,6 +102,7 @@ export default {
         // custom function to return cache key, when used previous
         // properties (useHostPrefix, pages) are ignored. return 
         // falsy value to bypass the cache
+        //console.log(route);
       },
   
       store: {
@@ -111,7 +112,7 @@ export default {
         // is removed.
         max: 100,
         // number of seconds to store this page in cache
-        ttl: 60 * 15, //15 minutos
+        ttl: 60,
       },
     },
 
@@ -130,9 +131,8 @@ export default {
     ]
   },
 
+  serverMiddleware: ['~/middleware/setHeader'],
   
-
-
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     extractCSS: true,
@@ -158,9 +158,4 @@ export default {
     }
   },
 
-  // render: {
-  //   static: {
-  //     maxAge: 2592000
-  //   }
-  // },
 }
