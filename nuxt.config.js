@@ -108,6 +108,12 @@ export default {
     }
   },
 
+  // bundleRenderer: {
+  //   shouldPreload: (file, type) => {
+  //     return ['script', 'style', 'font'].includes(type)
+  //   }
+  // },
+
   serverMiddleware: ['~/middleware/logger'],
 
   // Modules (https://go.nuxtjs.dev/config-modules)

@@ -1,4 +1,5 @@
 
+
 ChequearServiceWorkerPorPWA();
 //#region "PWA"
 var swRegistration;

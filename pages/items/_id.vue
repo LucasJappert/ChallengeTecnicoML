@@ -17,7 +17,7 @@
                 </div>
                 <div class="containerFicha">
                     <div class="ContenedorFoto">
-                        <img :src="RetornoApi.item.picture" :alt="RetornoApi.item.id" class="FotoProducto">
+                        <img width="10" height="10" :src="RetornoApi.item.picture" :alt="RetornoApi.item.id" class="FotoProducto">
                     </div>
                     <div class="ContenedorInfo">
                         <div class="Condition">{{RetornoApi.item.condition}} - {{RetornoApi.item.sold_quantity}} vendidos</div>
@@ -42,21 +42,6 @@
 <script>
 import axios from "axios";
 export default {
-    // watchQuery: ['page'],
-    // key: "Id",
-    // key: ({ path }) => path, // parameter is route object
-    // watchQuery: ["foo"],
-    // watchQuery(newQuery, oldQuery) {
-    //     // Only execute component methods if newQuery.search != oldQuery.search |
-    //     return (newQuery.foo == oldQuery.foo);
-    // },
-    name: "DetalleProducto",
-    beforeCreate(){
-        //console.log("beforeCreate");        
-    },
-    key(route) {
-        return route.fullPath;
-    },
     head() {
         return {
             title: "Challenge Técnico | " + this.RetornoApi.item.title,
@@ -73,12 +58,6 @@ export default {
         return {
             IdProducto: "",
             RetornoApi: { },
-
-            // RetornoApi: {
-            //     item: [{
-            //         categories: []
-            //     }]
-            // }
         }
     },
     async asyncData({ route }) {
@@ -90,13 +69,10 @@ export default {
             await axios.get("http://localhost:2004/api/items/" + route.params.id)
             .then(function (response){
                 _Retorno = response.data;
-                //console.log(_Data);
             })
             .catch(function (e){
                 console.log(e);
             });
-            // this.RetornoApi = _Retorno;
-            // this.IdProducto = route.params.id;
             return { 
                 RetornoApi: _Retorno,
                 IdProducto: route.params.id
@@ -163,6 +139,8 @@ export default {
         box-sizing:content-box;
     }
     .FotoProducto{
+        width:auto;
+        height:auto;
         max-width:$TamañoFoto;
         max-height:$TamañoFoto;
         max-width: calc(100% - 40px);
@@ -235,10 +213,6 @@ export default {
         .ContenedorFoto{
             width: 100%;
             height:$TamañoFoto_M - 32px;
-        }
-        .FotoProducto{
-            // max-width:$TamañoFoto_M;
-            // max-height:$TamañoFoto_M;
         }
         .Titulo{
             margin-top:$MargenRojo_M;

@@ -39,10 +39,6 @@ export default {
         // Only execute component methods if newQuery.search != oldQuery.search |
         return (newQuery.search != oldQuery.search);
     },
-    key(route) {
-        return route.fullPath
-    },
-    name: "ResultadosBusquedas",
     data(){
         return {
             TextoBuscado: "",
@@ -55,17 +51,8 @@ export default {
         meta: [
             { name: 'keywords', content: this.Keywords()},
             { hid: 'og:title', name: 'og:title', content: "Challenge Técnico | Búsqueda " + this.TextoBuscado},
-            // { hid: 'og:description', name: 'og:description', content: this.RetornoApi.item.title},
             { hid: 'og:url', name: 'og:url', content: "/items?search=" + this.TextoBuscado},
-            // { hid: 'og:image', name: 'og:image', content: this.RetornoApi.item.picture},
         ]
-        // meta: [
-        //   {
-        //     hid: 'description',
-        //     name: 'description',
-        //     content: "asdasdasdasdas asd sad sasd"
-        //   }
-        // ]
         }
     },
     async asyncData({ route }) {
@@ -83,8 +70,6 @@ export default {
             RetornoApi: _Retorno,
             TextoBuscado: route.query.search
         };
-    },
-    created(){
     },
     methods: {
         Keywords() {

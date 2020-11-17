@@ -1,14 +1,15 @@
 <template>
   <div class="Contenedor">
     <div class="wSite">
-      <a href="/" class="fLeft LinkLogo"><img src="../assets/Logo_ML@2x.png.png" alt="Logo ML" class="LogoML"></a> 
+      <a href="/" class="fLeft LinkLogo">
+        <img src="../assets/Logo_ML@2x.png.png" alt="Logo ML" class="LogoML" width="54px" height="36px">
+      </a> 
       <div class="BotonLupa fRigth" @click="ClickBuscar()"></div>
       <input type="text" class="CajaBusqueda fRigth" placeholder="Nunca dejes de buscar" id="CajaBusqueda"
-       autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off" 
+       autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off" aria-label="Ingresá lo que quieras encontrar"
        v-model="TextoBuscado"
        v-on:keyup.13="ClickBuscar()"
        >
-       <label for="CajaBusqueda"></label>
       <div class="clear"></div>
     </div>
   </div>
@@ -16,10 +17,6 @@
 
 <script>
 export default {
-    name: "Header",
-    key(route) {
-        return route.fullPath
-    },
     data(){
         return {
             TextoBuscado: ""

@@ -34,6 +34,7 @@ a{
 .clear { clear:both; }
 .dFlex{ display:flex; }
 .dBlock{ display:block; }
+.dNone { display:none; }
 .dIB{ display:inline-block; }
 
 .B{font-weight: bold;}
@@ -68,19 +69,21 @@ a{
 
 /*#region FUENTES*/
   @font-face {
+    font-display: swap;
     font-family: 'NovaLight';
     src: url('../fonts/proximanova-light.woff2'); /* IE9 Compat Modes */
     src: url('../fonts/proximanova-light.woff2') format('embedded-opentype'), /* IE6-IE8 */
          url('../fonts/proximanova-light.woff2') format('woff2'), /* Super Modern Browsers */
          url('../fonts/proximanova-light.woff2') format('woff'), /* Pretty Modern Browsers */
-         url('../fonts/proximanova-light.woff2')  format('truetype'), /* Safari, Android, iOS */
+         url('../fonts/proximanova-light.woff2')  format('truetype'), /* Safari, Android, iOS */;
   }
   @font-face {
+    font-display: swap;
     font-family: 'NovaRegular';
     src: url('../fonts/proximanova-regular.woff2'); /* IE9 Compat Modes */
     src: url('../fonts/proximanova-regular.woff2') format('embedded-opentype'), /* IE6-IE8 */
          url('../fonts/proximanova-regular.woff2') format('woff2'), /* Super Modern Browsers */
          url('../fonts/proximanova-regular.woff2') format('woff'), /* Pretty Modern Browsers */
-         url('../fonts/proximanova-regular.woff2')  format('truetype'), /* Safari, Android, iOS */
+         url('../fonts/proximanova-regular.woff2')  format('truetype'), /* Safari, Android, iOS */;
   }
 /*#endregion*/
