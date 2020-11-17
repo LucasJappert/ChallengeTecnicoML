@@ -4,10 +4,6 @@ export default {
   // automatically purged.
   version: "Version1",
 
-  // router: {
-  //   prefetchLinks: false
-  // },
-
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     htmlAttrs: {
@@ -26,14 +22,6 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.svg?version=1' },
-      //{ rel: 'manifest', href: '/manifest.json?version=1' }
-    ],
-    script: [
-      {
-        //src: '/main.js',
-        //async: true,
-        //crossorigin: "anonymous"
-      }
     ],
   },
 
@@ -56,10 +44,6 @@ export default {
     '@nuxtjs/pwa',
   ],
 
-  // router: {
-  //   prefetchLinks: false
-  // },
-
   pwa: {
     manifest: {
       start_url: "/",
@@ -78,20 +62,12 @@ export default {
       // config: {
       //   debug: false,
       // },
-      // cachingExtensions: '@/plugins/workbox-range-request.js',
       preCaching: [
-        //{ url: "/"},
-        // { url: "~assets/fonts/proximanova-light.woff2", revision: null},
-        // { url: "~assets/fonts/proximanova-regular.woff2", revision: null},
-        // { url: "~assets/ic_shipping@2x.png", revision: null},
-        // { url: "~assets/Logo_ML@2x.png.png", revision: null},
-        // { url: "/_nuxt/.*", revision: null},
         { url: "/favicon.svg?version=1", revision: null},
       ],
       runtimeCaching: [
         {
           urlPattern: 'https://http2.mlstatic.com/.*',
-          //handler: 'cacheFirst',
           strategyOptions: {
             cacheName: 'Cache-mlstatic',
           },
@@ -108,14 +84,6 @@ export default {
     }
   },
 
-  // bundleRenderer: {
-  //   shouldPreload: (file, type) => {
-  //     return ['script', 'style', 'font'].includes(type)
-  //   }
-  // },
-
-  serverMiddleware: ['~/middleware/logger'],
-
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     '@nuxtjs/style-resources', 
@@ -125,25 +93,9 @@ export default {
 
   //Server Side
   cache: {
-      // if you're serving multiple host names (with differing
-      // results) from the same server, set this option to true.
-      // (cache keys will be prefixed by your host name)
-      // if your server is behind a reverse-proxy, please use
-      // express or whatever else that uses 'X-Forwarded-Host'
-      // header field to provide req.hostname (actual host name)
       useHostPrefix: false,
       pages: [
-        // these are prefixes of pages that need to be cached
-        // if you want to cache all pages, just include '/'
-        //'/page1',
-        //'/page2',
         '/',
-  
-        // you can also pass a regular expression to test a path
-        ///^\/page3\/\d+$/,
-  
-        // to cache only root route, use a regular expression
-        ///^\/$/
       ],
       
       key(route, context) {
@@ -154,18 +106,14 @@ export default {
   
       store: {
         type: 'memory',
-  
         // maximum number of pages to store in memory
         // if limit is reached, least recently used page
         // is removed.
         max: 100,
-  
         // number of seconds to store this page in cache
-        ttl: 60,
+        ttl: 60 * 15, //15 minutos
       },
     },
-
-  // fetchOnServer: true,
 
   "nuxt-compress": {
     gzip: {
