@@ -14,6 +14,7 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
       { hid: 'description', name: 'description', content: 'Challenge Técnico | ML' },
+      { name: 'author', content: 'Lucas Jappert' },
       { name: 'keywords', content: '¡ofertas black friday!, Challenge tecnico ML' },
       { name: 'theme-color', content: '#FFE400' },
       { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
