@@ -2,19 +2,7 @@
     <div class="">
         <div class="container">
             <div class="wSite" v-if="RetornoApi.item.categories">
-                <div class="SeccionPath">
-                    <div v-for="(item, index) in RetornoApi.item.categories" :key="index" class="Categoria">
-                        <h2 :class="{ B: (index == RetornoApi.item.categories.length - 1)}">
-                            {{item.name}}
-                        </h2>
-                        
-                        <div v-if="index != RetornoApi.item.categories.length - 1">
-                            <div class="PiquitoMayor">
-                                <svg width="6" height="8"><path fill="none" stroke="#666" d="M1 0l4 4-4 4"></path></svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <pathSection :Categorias="this.NombresCategorias()" />
                 <div class="containerFicha">
                     <div class="ContenedorFoto">
                         <img width="10" height="10" :src="RetornoApi.item.picture" :alt="RetornoApi.item.id" class="FotoProducto">
@@ -41,6 +29,7 @@
 
 <script>
 import axios from "axios";
+import pathSection from "../../components/pathSection";
 export default {
     head() {
         return {
@@ -58,6 +47,7 @@ export default {
         return {
             IdProducto: "",
             RetornoApi: { },
+            Categorias: []
         }
     },
     async asyncData({ route }) {
@@ -73,6 +63,7 @@ export default {
             .catch(function (e){
                 console.log(e);
             });
+
             return { 
                 RetornoApi: _Retorno,
                 IdProducto: route.params.id
@@ -87,7 +78,17 @@ export default {
             _Retorno += ", ¡ofertas black friday! ";
             _Retorno += ", Challenge tecnico ML ";
             return _Retorno;
+        },
+        NombresCategorias() {
+            var _Retorno = [];
+            this.RetornoApi.item.categories.forEach(cat => {
+                _Retorno.push(cat.name);
+            });
+            return _Retorno;
         }
+    },
+    components: {
+        pathSection
     }
 }
 </script>
@@ -196,7 +197,7 @@ export default {
     }
 
     $AnchoContenedorInfo_M: 300px;
-    @media (min-width: (360px + $AnchoContenedorInfo_M)) and (max-width: $AnchoMobile){
+    @media (min-width: ($ResolucionMinimaAceptada + $AnchoContenedorInfo_M)) and (max-width: $AnchoMobile){
         .ContenedorInfo{
             min-width: $AnchoContenedorInfo_M;
         }
@@ -205,9 +206,14 @@ export default {
         }
     }
 
-    @media (max-width: (360px + $AnchoContenedorInfo_M)){
+    @media (max-width: ($ResolucionMinimaAceptada + $AnchoContenedorInfo_M)){
         .ContenedorInfo{
             margin: $MargenVerde_M $MargenRojo_M 0 $MargenRojo_M;
+            width: 100%;
+        }
+        .ContenedorDescripcion{
+            margin-top: $MargenVerde_M;
+            padding: $MargenRojo_M; 
             width: 100%;
         }
         .ContenedorFoto{

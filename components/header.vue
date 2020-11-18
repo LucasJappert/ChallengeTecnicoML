@@ -5,7 +5,7 @@
         <img src="../assets/Logo_ML@2x.png.png" alt="Logo ML" class="LogoML" width="54px" height="36px">
       </a> 
       <div class="BotonLupa fRigth" @click="ClickBuscar()"></div>
-      <input type="text" class="CajaBusqueda fRigth" placeholder="Nunca dejes de buscar" id="CajaBusqueda"
+      <input ref="CajaBusqueda" type="text" class="CajaBusqueda fRigth" placeholder="Nunca dejes de buscar" id="CajaBusqueda"
        autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off" aria-label="Ingresá lo que quieras encontrar"
        v-model="TextoBuscado"
        v-on:keyup.13="ClickBuscar()"
@@ -25,18 +25,31 @@ export default {
     created(){
         this.TextoBuscado = this.$route.query.search;
     },
+    mounted(){
+      if(this.$route.path == "/"){
+        this.$refs.CajaBusqueda.focus();
+      }
+    },
     methods: {
       ClickBuscar() {
-        let _Texto = this.TextoBuscado.trim();
-        if (_Texto.length < 3){
-          alert("Ingresá un texto que contenga al menos 2 letras...");
-          return;
-        }
-        
-        _Texto = window.encodeURIComponent(_Texto);
+        try {
+          if(this.TextoBuscado == undefined){ 
+            return; 
+          }
+          let _Texto = this.TextoBuscado.trim();
+          if (_Texto.length < 2){
+            alert("Ingresá un texto que contenga al menos 2 letras...");
+            return;
+          }
+          
+          _Texto = window.encodeURIComponent(_Texto);
 
-        window.location.href = "/items?search=" + _Texto;
-        // this.$router.push("/items?search=" + _Texto);
+          window.location.href = "/items?search=" + _Texto;
+        } catch (error) {
+            alert("Ingresá un texto válido...");
+            console.log(error);
+            return;
+        }
       }
     }
 }

@@ -2,7 +2,7 @@ export default {
   // If you provide a version, it will be stored inside cache.
   // Later when you deploy a new version, old cache will be
   // automatically purged.
-  version: "Version2",
+  version: "Version3",
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
@@ -14,6 +14,7 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
       { hid: 'description', name: 'description', content: 'Challenge Técnico | ML' },
+      { name: 'keywords', content: '¡ofertas black friday!, Challenge tecnico ML' },
       { name: 'theme-color', content: '#FFE400' },
       { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
       { 'http-equiv': 'Content-Type', content: 'text/html; charset=utf-8' },
@@ -22,6 +23,8 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.svg?version=1' },
+      // { rel: 'preload', as: 'font', href: '/_nuxt/assets/fonts/proximanova-light.woff2', crossOrigin: "anonymous" },
+      // { rel: 'preload', as: 'font', href: '/_nuxt/assets/fonts/proximanova-regular.woff2', crossOrigin: "anonymous" },
     ],
   },
 
@@ -95,7 +98,7 @@ export default {
   cache: {
       useHostPrefix: false,
       pages: [
-        '/',
+        { url: "/", revision: null},
       ],
       
       key(route, context) {
@@ -131,7 +134,7 @@ export default {
     ]
   },
 
-  serverMiddleware: ['~/middleware/setHeader'],
+  serverMiddleware: ['~middleware/setHeader'],
   
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {

@@ -2,6 +2,7 @@
   <div class="">
     <div class="container">
         <div class="wSite">
+            <pathSection :Categorias="this.NombresCategorias()" />
             <div class="containerProductos">
                 <div v-for="(item, index) in RetornoApi.items" :key="index" class="containerProducto">
                     <a :href="/items/ + item.id" class="contenedorFoto">
@@ -33,6 +34,7 @@
 
 <script>
 import axios from "axios";
+import pathSection from "../../components/pathSection";
 export default {
     watchQuery: ['page'],
     watchQuery(newQuery, oldQuery) {
@@ -77,8 +79,18 @@ export default {
             _Retorno += ", ¡ofertas black friday! ";
             _Retorno += ", Challenge tecnico ML ";
             return _Retorno;
+        },
+        NombresCategorias() {
+            var _Retorno = [];
+            this.RetornoApi.categories.forEach(cat => {
+                _Retorno.push(cat);
+            });
+            return _Retorno;
         }
     },
+    components: {
+        pathSection
+    }
 }
 </script>
 
@@ -94,7 +106,6 @@ export default {
         justify-content: center;
     }
     .containerProductos{
-        margin-top:20px;
         border-radius:3px;
         overflow: hidden;
         box-sizing:border-box;
