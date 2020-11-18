@@ -9,7 +9,7 @@ $ npm install
 # serve with hot reload at localhost:3000
 $ npm run dev
 
-*** PWA solo funciona en prod ***
+**PWA solo funciona en prod**
 ## build for production and launch server 
 $ npm run build
 $ npm run start
